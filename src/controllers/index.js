@@ -1,7 +1,7 @@
-const assessmentController = require('./assessment-controller');
-const miscController = require('./misc-controller');
+const miscController = require("./misc-controller");
+const userController = require("./user-controller");
 
 module.exports = {
-  assessmentController,
   miscController,
+  userController,
 };

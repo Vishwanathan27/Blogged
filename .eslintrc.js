@@ -11,5 +11,9 @@ module.exports = {
   },
   rules: {
     "import/no-unresolved": "off",
+    "linebreak-style": "off",
+    quotes: "off",
+    "no-unused-vars": "off",
+    "no-console": "off",
   },
 };

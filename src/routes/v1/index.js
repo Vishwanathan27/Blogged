@@ -1,13 +1,18 @@
 const express = require('express');
 
 const miscRouter = require('./misc');
+const userRouter = require("./user");
 
 const router = express.Router();
 
 const allRoutes = [
   {
-    path: '/misc',
+    path: "/misc",
     route: miscRouter,
+  },
+  {
+    path: "/user",
+    route: userRouter,
   },
 ];
 
