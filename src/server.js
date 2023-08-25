@@ -18,6 +18,7 @@ app.use(express.json());
 
 // v1 api routes
 app.use('/api/v1', routes);
+console.log("routes :", routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
