@@ -18,6 +18,7 @@ const allRoutes = [
 
 allRoutes.forEach((route) => {
   router.use(route.path, route.route);
+  console.log("router :", router);
 });
 
 module.exports = router;
