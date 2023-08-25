@@ -4,6 +4,7 @@ const miscRouter = require('./misc');
 const userRouter = require("./user");
 
 const router = express.Router();
+router.get("/test", (req, res) => res.send("Test route!"));
 
 const allRoutes = [
   {
