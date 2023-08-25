@@ -21,8 +21,8 @@ app.use("/api/v1", routes);
 app.use("/test", (req, res) => res.send("Test route!"));
 
 // send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-  next(new ApiError(404, 'Not found'));
+app.use("error", (req, res, next) => {
+  next(new ApiError(404, "Not found"));
 });
 
 module.exports = app;
