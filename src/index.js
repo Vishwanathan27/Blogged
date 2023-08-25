@@ -8,7 +8,6 @@ const server = require("./server");
 (async () => {
   try {
     // Connect DB
-    console.log(process.env);
     await mongoService.connect();
 
     // Start Server
