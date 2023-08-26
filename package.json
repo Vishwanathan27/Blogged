@@ -20,6 +20,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.1",
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
     "mongodb": "^5.5.0",
@@ -37,6 +38,7 @@
     "@config": "src/config/index.js",
     "@controllers": "src/controllers/index.js",
     "@services": "src/services/index.js",
-    "@models": "src/models/index.js"
+    "@models": "src/models/index.js",
+    "@auth":"src/middlewares/auth.js"
   }
 }

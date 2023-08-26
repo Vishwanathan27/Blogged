@@ -1,23 +1,24 @@
 const express = require('express');
+const { validateToken } = require("@auth");
 
-const miscRouter = require('./misc');
+const miscRouter = require("./misc");
 const userRouter = require("./user");
+const authRouter = require("./auth");
+
+const publicRouter = express.Router();
+const privateRouter = express.Router();
+
+// Public routes
+publicRouter.use("/misc", miscRouter);
+publicRouter.use("/user", userRouter);
+publicRouter.use("/auth", authRouter);
+
+// Private routes
+privateRouter.use("/user", userRouter);
 
 const router = express.Router();
 
-const allRoutes = [
-  {
-    path: "/misc",
-    route: miscRouter,
-  },
-  {
-    path: "/user",
-    route: userRouter,
-  },
-];
-
-allRoutes.forEach((route) => {
-  router.use(route.path, route.route);
-});
+router.use("/public", publicRouter);
+router.use("/private", validateToken, privateRouter);
 
 module.exports = router;

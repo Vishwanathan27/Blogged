@@ -1,6 +1,7 @@
+const { miscService } = require("@services");
+
+const { health } = miscService;
+
 module.exports = {
-  /* checking server's health */
-  health: async (_, res) => {
-    res.status(200).send('OK!');
-  },
+  health,
 };

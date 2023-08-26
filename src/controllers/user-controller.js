@@ -1,6 +1,7 @@
 const { userService } = require("@services");
+const { miscService } = require("@services");
 
-const { health } = userService;
+const { health } = miscService;
 
 const register = async (req, res) => {
   try {
