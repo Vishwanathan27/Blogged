@@ -1,4 +1,5 @@
 const { miscService, postsService } = require("@services");
+const { dataConfig } = require("@config");
 
 const { health } = miscService;
 
@@ -19,9 +20,12 @@ const createPost = async (req, res, next) => {
 const getAllPosts = async (req, res, next) => {
   try {
     const { query } = req;
-    const page = parseInt(query.page || "1");
-    const limit = parseInt(query.limit || "10");
-    const posts = await postsService.getAllPosts(page, limit);
+    const page = parseInt(query.page) || dataConfig.page;
+    const limit = parseInt(query.limit) || dataConfig.limit;
+    const sort = query.sort || dataConfig.sort;
+
+    const search = query.search || "";
+    const posts = await postsService.getAllPosts(page, limit, search, sort);
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     res.status(500).send({

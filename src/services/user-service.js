@@ -25,12 +25,24 @@ module.exports = {
 
   getUserById: async (userId) => User.findById(userId),
 
-  async getUsers(page = 1, itemsPerPage = 10) {
+  async getUsers(
+    page = 1,
+    itemsPerPage = 10,
+    searchTerm = "",
+    sort = { _id: -1 },
+  ) {
     try {
       const skip = (page - 1) * itemsPerPage;
       const limit = itemsPerPage;
-
-      return await User.find().skip(skip).limit(limit);
+      let query = {};
+      if (searchTerm) {
+        query = {
+          $text: {
+            $search: searchTerm,
+          },
+        };
+      }
+      return await User.find(query).skip(skip).limit(limit).sort(sort);
     } catch (error) {
       console.log(error);
       return error;

@@ -1,5 +1,6 @@
 const { userService } = require("@services");
 const { miscService } = require("@services");
+const { dataConfig } = require("@config");
 
 const { health } = miscService;
 
@@ -26,9 +27,11 @@ const register = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const { query } = req;
-    const page = parseInt(query.page || "1");
-    const limit = parseInt(query.limit || "10");
-    const users = await userService.getUsers(page, limit);
+    const page = parseInt(query.page) || dataConfig.page;
+    const limit = parseInt(query.limit) || dataConfig.limit;
+    const sort = query.sort || dataConfig.sort;
+    const search = query.search || "";
+    const users = await userService.getUsers(page, limit, search, sort);
     res.status(200).send({ success: true, users });
   } catch (error) {
     console.error(error);

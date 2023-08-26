@@ -68,6 +68,8 @@ PostSchema.pre("find", function (next) {
   next();
 });
 
+PostSchema.index({ title: "text", content: "text" });
+
 const Post = mongoose.model("Post", PostSchema);
 
 module.exports = Post;

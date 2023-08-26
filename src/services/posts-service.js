@@ -11,12 +11,24 @@ const postsService = {
     }
   },
 
-  async getAllPosts(page = 1, itemsPerPage = 10) {
+  async getAllPosts(
+    page = 1,
+    itemsPerPage = 10,
+    searchTerm = "",
+    sort = { _id: -1 },
+  ) {
     try {
       const skip = (page - 1) * itemsPerPage;
       const limit = itemsPerPage;
-
-      return await Posts.find().skip(skip).limit(limit);
+      let query = {};
+      if (searchTerm) {
+        query = {
+          $text: {
+            $search: searchTerm,
+          },
+        };
+      }
+      return await Posts.find(query).skip(skip).limit(limit).sort(sort);
     } catch (error) {
       console.log(error);
       return error;
