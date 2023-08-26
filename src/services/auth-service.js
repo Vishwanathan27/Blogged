@@ -33,7 +33,7 @@ const authenticate = async (username, password) => {
 
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {
-    throw new Error("Invalid password.");
+    return null;
   }
 
   return user;
