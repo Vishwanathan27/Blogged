@@ -14,8 +14,6 @@ const PostSchema = new mongoose.Schema({
   slug: {
     // Useful for SEO friendly URLs
     type: String,
-    required: true,
-    unique: true,
     trim: true,
     lowercase: true,
   },
@@ -52,6 +50,21 @@ PostSchema.pre("save", function (next) {
     this.publishedAt = moment().valueOf();
   }
 
+  // populate author:
+  this.populate({
+    path: "author",
+    select: "_id firstName lastName",
+  });
+
+  next();
+});
+
+// always populate author before return
+PostSchema.pre("find", function (next) {
+  this.populate({
+    path: "author",
+    select: "_id firstName lastName",
+  });
   next();
 });
 

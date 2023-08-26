@@ -13,7 +13,7 @@ const postsService = {
 
   async getAllPosts() {
     try {
-      return await Posts.find().populate("author", "username -_id");
+      return await Posts.find();
     } catch (error) {
       console.log(error);
       return error;
