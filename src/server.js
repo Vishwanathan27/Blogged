@@ -4,6 +4,7 @@ const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
 const xssClean = require("xss-clean");
+const rateLimit = require("express-rate-limit");
 const routes = require("./routes/v1");
 const ApiError = require("./utils/ApiError");
 
@@ -12,6 +13,13 @@ app.use(helmet());
 
 // Protect against XSS attacks, should come before any routes
 app.use(xssClean());
+
+// Restrict all routes to only 50 requests per IP address every minute
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 50, // 50 requests per IP
+});
+app.use(limiter);
 
 // enable cors
 app.use(cors());
