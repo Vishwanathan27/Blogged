@@ -3,11 +3,15 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
-const routes = require('./routes/v1');
-const ApiError = require('./utils/ApiError');
+const xssClean = require("xss-clean");
+const routes = require("./routes/v1");
+const ApiError = require("./utils/ApiError");
 
 // Helmet
 app.use(helmet());
+
+// Protect against XSS attacks, should come before any routes
+app.use(xssClean());
 
 // enable cors
 app.use(cors());

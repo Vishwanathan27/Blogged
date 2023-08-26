@@ -24,7 +24,8 @@
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
     "mongodb": "^5.5.0",
-    "mongoose": "^7.2.1"
+    "mongoose": "^7.2.1",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "@types/module-alias": "^2.0.1",
@@ -39,6 +40,6 @@
     "@controllers": "src/controllers/index.js",
     "@services": "src/services/index.js",
     "@models": "src/models/index.js",
-    "@auth":"src/middlewares/auth.js"
+    "@auth": "src/middlewares/auth.js"
   }
 }
