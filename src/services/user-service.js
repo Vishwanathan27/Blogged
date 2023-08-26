@@ -5,14 +5,25 @@ module.exports = {
   health: async (_, res) => {
     res.status(201).send("OK");
   },
+
   register: async (userData) => {
     const user = new User(userData);
     return user.save();
   },
+
+  updateUser: async (userId, updatedData) =>
+    User.findByIdAndUpdate(userId, updatedData, { new: true }),
+
+  deleteUser: async (userId) => User.findByIdAndRemove(userId),
+
   hashPassword: async (password) => {
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
   },
+
   compareHashPassword: async (password, hash) => bcrypt.compare(password, hash),
-  getUsers: async (req, res) => User.find({}),
+
+  getUserById: async (userId) => User.findById(userId),
+
+  getUsers: async () => User.find({}),
 };

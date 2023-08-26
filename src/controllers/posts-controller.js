@@ -39,6 +39,7 @@ const getPostById = async (req, res, next) => {
     }
     res.status(200).json({ success: true, data: post });
   } catch (error) {
+    console.error(error);
     res.status(500).send({
       success: false,
       error: "Internal Server Error",
@@ -58,6 +59,7 @@ const updatePost = async (req, res, next) => {
     }
     res.status(200).json({ success: true, data: updatedPost });
   } catch (error) {
+    console.error(error);
     res.status(500).send({
       success: false,
       error: "Internal Server Error",
@@ -78,6 +80,7 @@ const deletePost = async (req, res, next) => {
       .status(200)
       .json({ success: true, message: "Post deleted successfully" });
   } catch (error) {
+    console.error(error);
     res.status(500).send({
       success: false,
       error: "Internal Server Error",

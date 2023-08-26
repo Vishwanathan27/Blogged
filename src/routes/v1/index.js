@@ -1,5 +1,6 @@
 const express = require('express');
 const { validateToken } = require("@auth");
+const { userController } = require("@controllers");
 
 const miscRouter = require("./misc");
 const userRouter = require("./user");
@@ -11,8 +12,8 @@ const privateRouter = express.Router();
 
 // Public routes
 publicRouter.use("/misc", miscRouter);
-publicRouter.use("/user", userRouter);
 publicRouter.use("/auth", authRouter);
+publicRouter.use("/user/register", userController.register);
 
 // Private routes
 privateRouter.use("/user", userRouter);

@@ -18,5 +18,6 @@ module.exports = {
     "no-underscore-dangle": "off",
     "consistent-return": "off",
     "import/no-extraneous-dependencies": "off",
+    "implicit-arrow-linebreak": "off",
   },
 };
