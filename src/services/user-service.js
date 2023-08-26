@@ -25,5 +25,15 @@ module.exports = {
 
   getUserById: async (userId) => User.findById(userId),
 
-  getUsers: async () => User.find({}),
+  async getUsers(page = 1, itemsPerPage = 10) {
+    try {
+      const skip = (page - 1) * itemsPerPage;
+      const limit = itemsPerPage;
+
+      return await User.find().skip(skip).limit(limit);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
 };

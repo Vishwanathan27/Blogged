@@ -25,7 +25,10 @@ const register = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userService.getUsers();
+    const { query } = req;
+    const page = parseInt(query.page || "1");
+    const limit = parseInt(query.limit || "10");
+    const users = await userService.getUsers(page, limit);
     res.status(200).send({ success: true, users });
   } catch (error) {
     console.error(error);

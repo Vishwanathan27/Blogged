@@ -18,7 +18,10 @@ const createPost = async (req, res, next) => {
 
 const getAllPosts = async (req, res, next) => {
   try {
-    const posts = await postsService.getAllPosts();
+    const { query } = req;
+    const page = parseInt(query.page || "1");
+    const limit = parseInt(query.limit || "10");
+    const posts = await postsService.getAllPosts(page, limit);
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     res.status(500).send({

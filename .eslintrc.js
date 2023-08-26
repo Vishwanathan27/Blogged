@@ -19,5 +19,6 @@ module.exports = {
     "consistent-return": "off",
     "import/no-extraneous-dependencies": "off",
     "implicit-arrow-linebreak": "off",
+    radix: "off",
   },
 };

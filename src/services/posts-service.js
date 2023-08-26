@@ -11,9 +11,12 @@ const postsService = {
     }
   },
 
-  async getAllPosts() {
+  async getAllPosts(page = 1, itemsPerPage = 10) {
     try {
-      return await Posts.find();
+      const skip = (page - 1) * itemsPerPage;
+      const limit = itemsPerPage;
+
+      return await Posts.find().skip(skip).limit(limit);
     } catch (error) {
       console.log(error);
       return error;
