@@ -4,6 +4,7 @@ const { validateToken } = require("@auth");
 const miscRouter = require("./misc");
 const userRouter = require("./user");
 const authRouter = require("./auth");
+const postsRouter = require("./posts");
 
 const publicRouter = express.Router();
 const privateRouter = express.Router();
@@ -15,6 +16,7 @@ publicRouter.use("/auth", authRouter);
 
 // Private routes
 privateRouter.use("/user", userRouter);
+privateRouter.use("/posts", postsRouter);
 
 const router = express.Router();
 
