@@ -46,7 +46,7 @@ const generateToken = (user) => {
   };
 
   const options = {
-    expiresIn: "1h", // token will expire in 1 hour
+    expiresIn: "12h", // token will expire in 1 hour
   };
 
   return jwt.sign(payload, JWT_SECRET, options);
