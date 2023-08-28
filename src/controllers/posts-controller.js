@@ -99,11 +99,28 @@ const deletePost = async (req, res, next) => {
   }
 };
 
+const getAllTags = async (req, res, next) => {
+  try {
+    const { query } = req;
+    const page = parseInt(query.page) || dataConfig.page;
+    const limit = parseInt(query.limit) || dataConfig.maxLimit;
+    const tags = await postsService.getAllTags(page, limit);
+    res.status(200).json({ success: true, data: tags });
+  } catch (error) {
+    console.log("error in getAllTags :", error);
+    res.status(500).send({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  getAllTags,
   health,
 };

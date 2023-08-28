@@ -1,51 +1,54 @@
 const mongoose = require("mongoose");
 const moment = require("moment");
 
-const PostSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    trim: true,
+const PostSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      trim: true,
+    },
+    content: {
+      type: Array,
+    },
+    headerImageUrl: {
+      type: String,
+      trim: true,
+    },
+    imageName: {
+      type: String,
+      trim: true,
+    },
+    slug: {
+      // Useful for SEO friendly URLs
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
+    tags: [String], // Optional: for categorizing posts
+    author: {
+      type: mongoose.Schema.Types.ObjectId, // This references the User model
+      ref: "User",
+      required: true,
+    },
+    createdAt: {
+      type: Number, // Using Number type for Unix timestamp
+      default: () => moment().valueOf(), // Returns current time as Unix timestamp
+    },
+    updatedAt: {
+      type: Number,
+    },
+    published: {
+      // To decide if the post is visible to users or still in draft mode
+      type: Boolean,
+      default: false,
+    },
+    publishedAt: {
+      // Timestamp of when the post was made public
+      type: Number,
+    },
   },
-  content: {
-    type: Array,
-  },
-  headerImageUrl: {
-    type: String,
-    trim: true,
-  },
-  imageName: {
-    type: String,
-    trim: true,
-  },
-  slug: {
-    // Useful for SEO friendly URLs
-    type: String,
-    trim: true,
-    lowercase: true,
-  },
-  tags: [String], // Optional: for categorizing posts
-  author: {
-    type: mongoose.Schema.Types.ObjectId, // This references the User model
-    ref: "User",
-    required: true,
-  },
-  createdAt: {
-    type: Number, // Using Number type for Unix timestamp
-    default: () => moment().valueOf(), // Returns current time as Unix timestamp
-  },
-  updatedAt: {
-    type: Number,
-  },
-  published: {
-    // To decide if the post is visible to users or still in draft mode
-    type: Boolean,
-    default: false,
-  },
-  publishedAt: {
-    // Timestamp of when the post was made public
-    type: Number,
-  },
-});
+  { versionKey: false }
+);
 
 // Pre-save hook to set updatedAt before saving the document
 PostSchema.pre("save", function (next) {

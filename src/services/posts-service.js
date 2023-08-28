@@ -96,6 +96,18 @@ const postsService = {
       return error;
     }
   },
+
+  async getAllTags(page = 1, itemsPerPage = 100) {
+    try {
+      const skip = (page - 1) * itemsPerPage;
+      const limit = itemsPerPage;
+
+      return await Tags.find({}, { tags: { $slice: [skip, limit] } });
+    } catch (error) {
+      console.error("error in getAllTags:", error);
+      return error;
+    }
+  },
 };
 
 module.exports = postsService;

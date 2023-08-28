@@ -10,6 +10,7 @@ router.get("/health", postsController.health);
 // CRUD endpoints for posts
 router.post("/", postsController.createPost); // Create a new post
 router.get("/", postsController.getAllPosts); // Get all posts
+router.get("/tags", postsController.getAllTags); // Get all posts
 router.get("/:id", postsController.getPostById); // Get a specific post by its ID
 router.put("/:id", postsController.updatePost); // Update a post by its ID
 router.delete("/:id", postsController.deletePost); // Delete a post by its ID
