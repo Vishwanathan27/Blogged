@@ -68,18 +68,29 @@ const postsService = {
     try {
       const now = moment().valueOf();
 
-      const tagObjects = tags.map((tag) => ({
-        name: tag,
-        slug: tag.toLowerCase().replace(/\s+/g, "-"),
-        createdAt: now,
-        type: "CUSTOM",
-      }));
+      const promises = tags.map(async (tag) => {
+        const slug = tag.toLowerCase().replace(/\s+/g, "-");
 
-      return await Tags.updateOne(
-        {},
-        { $addToSet: { tags: { $each: tagObjects } } },
-        { upsert: true }
-      );
+        const tagData = {
+          name: tag,
+          slug,
+          createdAt: now,
+          type: "CUSTOM",
+        };
+
+        // Check if a tag with the same slug already exists.
+        const existingTag = await Tags.findOne({ "tags.slug": slug });
+
+        if (!existingTag) {
+          return Tags.updateOne(
+            {},
+            { $push: { tags: tagData } },
+            { upsert: true }
+          );
+        }
+      });
+
+      return await Promise.all(promises);
     } catch (error) {
       console.error("error in saveTags:", error);
       return error;
