@@ -74,6 +74,12 @@ PostSchema.pre("find", function (next) {
   next();
 });
 
+PostSchema.virtual("timeAgo").get(function () {
+  return moment(this.updatedAt).fromNow();
+});
+
+PostSchema.set("toJSON", { virtuals: true });
+
 PostSchema.index({ title: "text", content: "text" });
 
 const Post = mongoose.model("Post", PostSchema);
