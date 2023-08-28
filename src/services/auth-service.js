@@ -28,7 +28,7 @@ const authenticate = async (username, password) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    throw new Error("User not found.");
+   return null;
   }
 
   const isPasswordMatch = await bcrypt.compare(password, user.password);
