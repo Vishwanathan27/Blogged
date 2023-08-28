@@ -6,6 +6,7 @@ const miscRouter = require("./misc");
 const userRouter = require("./user");
 const authRouter = require("./auth");
 const postsRouter = require("./posts");
+const mediaRouter = require("./media");
 
 const publicRouter = express.Router();
 const privateRouter = express.Router();
@@ -18,6 +19,7 @@ publicRouter.use("/user/register", userController.register);
 // Private routes
 privateRouter.use("/user", userRouter);
 privateRouter.use("/posts", postsRouter);
+privateRouter.use("/media", mediaRouter);
 
 const router = express.Router();
 

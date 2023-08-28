@@ -20,5 +20,7 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "implicit-arrow-linebreak": "off",
     radix: "off",
+    "comma-dangle": "off",
+    "no-bitwise": "off",
   },
 };
