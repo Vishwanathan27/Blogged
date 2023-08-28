@@ -1,4 +1,6 @@
 const { Posts } = require("@models");
+const { Tags } = require("@models");
+const moment = require("moment");
 
 const postsService = {
   async createPost(postData) {
@@ -15,7 +17,7 @@ const postsService = {
     page = 1,
     itemsPerPage = 10,
     searchTerm = "",
-    sort = { _id: -1 },
+    sort = { _id: -1 }
   ) {
     try {
       const skip = (page - 1) * itemsPerPage;
@@ -58,6 +60,28 @@ const postsService = {
       return await Posts.findByIdAndRemove(postId);
     } catch (error) {
       console.log(error);
+      return error;
+    }
+  },
+
+  async saveTags(tags) {
+    try {
+      const now = moment().valueOf();
+
+      const tagObjects = tags.map((tag) => ({
+        name: tag,
+        slug: tag.toLowerCase().replace(/\s+/g, "-"),
+        createdAt: now,
+        type: "CUSTOM",
+      }));
+
+      return await Tags.updateOne(
+        {},
+        { $addToSet: { tags: { $each: tagObjects } } },
+        { upsert: true }
+      );
+    } catch (error) {
+      console.error("error in saveTags:", error);
       return error;
     }
   },

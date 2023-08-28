@@ -6,6 +6,10 @@ const { health } = miscService;
 const createPost = async (req, res, next) => {
   try {
     const postData = req.body;
+    const { tags } = postData;
+    if (tags?.length) {
+      await postsService.saveTags(tags);
+    }
     const post = await postsService.createPost(postData);
     res.status(201).json({ success: true, data: post });
   } catch (error) {

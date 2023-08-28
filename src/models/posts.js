@@ -4,12 +4,18 @@ const moment = require("moment");
 const PostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
     trim: true,
   },
   content: {
+    type: Array,
+  },
+  headerImageUrl: {
     type: String,
-    required: true,
+    trim: true,
+  },
+  imageName: {
+    type: String,
+    trim: true,
   },
   slug: {
     // Useful for SEO friendly URLs
