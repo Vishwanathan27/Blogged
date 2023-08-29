@@ -42,8 +42,8 @@ module.exports = {
   },
   uploadToS3: async (bucket, path, buffer, contentType) => {
       const s3 = new AWS.S3({
-                  accessKeyId: awsConfig.AWS_ACCESS_KEY,
-                  secretAccessKey: awsConfig.AWS_ACCESS_SECRET,
+                  accessKeyId: "AKIATQJZIBXHVW2UZJXH",
+                  secretAccessKey: "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",
                   region: 'us-east-1'
                 });
     console.log(JSON.stringify(s3),"awsConfig.AWS_ACCESS_KEY:",awsConfig.AWS_ACCESS_KEY,"awsConfig.AWS_ACCESS_SECRET",awsConfig.AWS_ACCESS_SECRET);
