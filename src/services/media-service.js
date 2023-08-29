@@ -2,10 +2,13 @@ const Jimp = require("jimp");
 const AWS = require("aws-sdk");
 const { awsConfig } = require("@config");
 
-const s3 = new AWS.S3({
+const configObject = {
   accessKeyId: awsConfig.AWS_ACCESS_KEY,
   secretAccessKey: awsConfig.AWS_ACCESS_SECRET,
-});
+  region: awsConfig.REGION,
+};
+const s3 = new AWS.S3(configObject);
+AWS.config.update(configObject);
 
 module.exports = {
   changeDimension: (width, height, desiredDimension) => {
