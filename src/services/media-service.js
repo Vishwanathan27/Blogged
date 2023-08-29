@@ -44,6 +44,7 @@ module.exports = {
       const s3 = new AWS.S3({
                   accessKeyId: awsConfig.AWS_ACCESS_KEY,
                   secretAccessKey: awsConfig.AWS_ACCESS_SECRET,
+                  region: 'us-east-1'
                 });
     console.log(s3,"awsConfig.AWS_ACCESS_KEY:",awsConfig.AWS_ACCESS_KEY,"awsConfig.AWS_ACCESS_SECRET",awsConfig.AWS_ACCESS_SECRET);
     const s3bucket = new AWS.S3({ params: { Bucket: bucket } });
