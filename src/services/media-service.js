@@ -1,12 +1,6 @@
 const Jimp = require("jimp");
 const AWS = require("aws-sdk");
 const { awsConfig } = require("@config");
-
-const s3 = new AWS.S3({
-  accessKeyId: awsConfig.AWS_ACCESS_KEY,
-  secretAccessKey: awsConfig.AWS_ACCESS_SECRET,
-});
-
 module.exports = {
   changeDimension: (width, height, desiredDimension) => {
     const ratio = width >= height ? width / height : height / width;
@@ -47,6 +41,11 @@ module.exports = {
     }
   },
   uploadToS3: async (bucket, path, buffer, contentType) => {
+      const s3 = new AWS.S3({
+                  accessKeyId: awsConfig.AWS_ACCESS_KEY,
+                  secretAccessKey: awsConfig.AWS_ACCESS_SECRET,
+                });
+    console.log(s3,"awsConfig.AWS_ACCESS_KEY:",awsConfig.AWS_ACCESS_KEY,"awsConfig.AWS_ACCESS_SECRET",awsConfig.AWS_ACCESS_SECRET);
     const s3bucket = new AWS.S3({ params: { Bucket: bucket } });
     const uploadParams = {
       Bucket: bucket,
