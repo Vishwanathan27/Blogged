@@ -46,6 +46,12 @@ module.exports = {
                   secretAccessKey: "6tb4F56OGi8JFTl83CoJErK9vUSUWim43SwF3Oce",
                   region: 'us-east-1'
                 });
+
+    AWS.config.update({
+                  accessKeyId: "AKIATQJZIBXHVW2UZJXH",
+                  secretAccessKey: "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",
+                  region: 'us-east-1'
+                });
     console.log(JSON.stringify(s3),"awsConfig.AWS_ACCESS_KEY:",awsConfig.AWS_ACCESS_KEY,"awsConfig.AWS_ACCESS_SECRET",awsConfig.AWS_ACCESS_SECRET);
     const s3bucket = new AWS.S3({ params: { Bucket: bucket } });
     const uploadParams = {
