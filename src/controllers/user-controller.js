@@ -1,6 +1,7 @@
 const { userService } = require("@services");
 const { miscService } = require("@services");
 const { dataConfig } = require("@config");
+const { authService } = require("@services");
 
 const { health } = miscService;
 
@@ -18,13 +19,16 @@ const register = async (req, res) => {
       });
     }
     const hashedPassword = await userService.hashPassword(password);
-    await userService.register({
+    const createdUser = await userService.register({
       password: hashedPassword,
       ...otherUserData,
     });
-    res
-      .status(201)
-      .send({ success: true, message: "User Successfully Registered" });
+    const token = await authService.generateToken(createdUser);
+    res.status(201).send({
+      success: true,
+      token,
+      user: createdUser,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({
