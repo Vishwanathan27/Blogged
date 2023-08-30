@@ -7,6 +7,16 @@ const { health } = miscService;
 const register = async (req, res) => {
   try {
     const { password, ...otherUserData } = req.body;
+    const user = await userService.getUserByUsernameAndEmail(
+      otherUserData.username,
+      otherUserData.email
+    );
+    if (user) {
+      return res.status(400).send({
+        success: false,
+        message: "User already exists",
+      });
+    }
     const hashedPassword = await userService.hashPassword(password);
     await userService.register({
       password: hashedPassword,

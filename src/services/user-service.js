@@ -10,6 +10,10 @@ module.exports = {
     const user = new User(userData);
     return user.save();
   },
+  getUserByUsernameAndEmail: async (username, email) =>
+    User.findOne({
+      $or: [{ username }, { email }],
+    }),
 
   updateUser: async (userId, updatedData) =>
     User.findByIdAndUpdate(userId, updatedData, { new: true }),
@@ -29,7 +33,7 @@ module.exports = {
     page = 1,
     itemsPerPage = 10,
     searchTerm = "",
-    sort = { _id: -1 },
+    sort = { _id: -1 }
   ) {
     try {
       const skip = (page - 1) * itemsPerPage;
