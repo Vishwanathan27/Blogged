@@ -29,6 +29,8 @@
     "moment": "^2.29.4",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.1",
+    "swagger-jsdoc": "^6.0.0",
+    "swagger-ui-express": "^5.0.0",
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {

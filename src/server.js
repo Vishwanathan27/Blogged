@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 const routes = require("./routes/v1");
 const ApiError = require("./utils/ApiError");
 
@@ -23,13 +25,50 @@ app.use(limiter);
 
 // enable cors
 app.use(cors());
-app.options('*', cors());
+app.options("*", cors());
 
 // Middleware
 app.use(express.json());
 
+// Swagger
+const swaggerDefinition = {
+  openapi: "3.0.0",
+  info: {
+    title: "Node.js REST API Boilerplate with Express",
+    version: "1.0.0",
+  },
+  components: {
+    securitySchemes: {
+      JWT: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
+  },
+  servers: [
+    {
+      url: "http://localhost:80/api/v1",
+    },
+  ],
+};
+
+const options = {
+  swaggerDefinition,
+  apis: ["src/routes/v1/*.js"],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // v1 api routes
 app.use("/api/v1", routes);
+
+app.get("/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
