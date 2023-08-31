@@ -1,8 +1,9 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 
 const app = express();
-const helmet = require('helmet');
-const cors = require('cors');
+const helmet = require("helmet");
+const cors = require("cors");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const swaggerJSDoc = require("swagger-jsdoc");
@@ -22,6 +23,12 @@ const limiter = rateLimit({
   max: 50, // 50 requests per IP
 });
 app.use(limiter);
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 // enable cors
 app.use(cors());
@@ -64,6 +71,9 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // v1 api routes
 app.use("/api/v1", routes);
+
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.get("/swagger.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
