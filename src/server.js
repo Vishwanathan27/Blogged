@@ -1,5 +1,4 @@
-const express = require('express');
-const bodyParser = require("body-parser");
+const express = require("express");
 
 const app = express();
 const helmet = require("helmet");
@@ -23,12 +22,6 @@ const limiter = rateLimit({
   max: 50, // 50 requests per IP
 });
 app.use(limiter);
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// parse application/json
-app.use(bodyParser.json());
 
 // enable cors
 app.use(cors());
@@ -72,9 +65,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // v1 api routes
 app.use("/api/v1", routes);
 
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
-
 app.get("/swagger.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");
   res.send(swaggerSpec);
@@ -83,7 +73,7 @@ app.get("/swagger.json", (req, res) => {
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
   console.log(`Unknown request path: ${req.path}`);
-  next(new ApiError(404, 'Not found'));
+  next(new ApiError(404, "Not found"));
 });
 
 module.exports = app;
