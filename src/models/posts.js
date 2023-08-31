@@ -8,7 +8,7 @@ const PostSchema = new mongoose.Schema(
       trim: true,
     },
     content: {
-      type: Array,
+      type: String,
     },
     headerImageUrl: {
       type: String,
