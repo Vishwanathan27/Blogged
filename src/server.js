@@ -50,6 +50,9 @@ const swaggerDefinition = {
     {
       url: "http://localhost:80/api/v1",
     },
+    {
+      url: "http://54.194.24.88/api/v1",
+    },
   ],
 };
 
