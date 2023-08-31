@@ -78,15 +78,11 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, {
-    swaggerOptions: {
-      url: "http://54.194.24.88/swagger.json",
-    },
-  })
-);
+app.use("/api-docs", (req, res, next) => {
+  req.protocol = 'http';
+  next();
+}, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // v1 api routes
 app.use("/api/v1", routes);
