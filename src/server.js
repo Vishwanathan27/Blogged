@@ -11,7 +11,18 @@ const routes = require("./routes/v1");
 const ApiError = require("./utils/ApiError");
 
 // Helmet
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "default-src": ["'self'", "http:", "https:"],
+      },
+    },
+  })
+);
+
+app.set("trust proxy", true);
 
 // Protect against XSS attacks, should come before any routes
 app.use(xssClean());
@@ -66,7 +77,15 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    swaggerOptions: {
+      url: "http://54.194.24.88/swagger.json",
+    },
+  })
+);
 
 // v1 api routes
 app.use("/api/v1", routes);
