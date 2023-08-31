@@ -66,15 +66,7 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-app.use(
-  "/api-docs",
-  (_, r, next) => {
-    console.log("Accessing Swagger UI");
-    next();
-  },
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec)
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // v1 api routes
 app.use("/api/v1", routes);
