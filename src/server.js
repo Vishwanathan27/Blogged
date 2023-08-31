@@ -48,6 +48,7 @@ const swaggerDefinition = {
     title: "Node.js REST API Boilerplate with Express",
     version: "1.0.0",
   },
+  schemes: ["http"],
   components: {
     securitySchemes: {
       JWT: {
