@@ -27,9 +27,16 @@ const getAllPosts = async (req, res, next) => {
     const page = parseInt(query.page) || dataConfig.page;
     const limit = parseInt(query.limit) || dataConfig.limit;
     const sort = query.sort || dataConfig.sort;
-
+    const tags = query.tags || "";
     const search = query.search || "";
-    const posts = await postsService.getAllPosts(page, limit, search, sort);
+
+    const posts = await postsService.getAllPosts(
+      page,
+      limit,
+      search,
+      sort,
+      tags
+    );
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     res.status(500).send({

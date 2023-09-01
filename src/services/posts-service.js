@@ -17,12 +17,14 @@ const postsService = {
     page = 1,
     itemsPerPage = 10,
     searchTerm = "",
-    sort = { _id: -1 }
+    sort = { _id: -1 },
+    tags = ""
   ) {
     try {
       const skip = (page - 1) * itemsPerPage;
       const limit = itemsPerPage;
       let query = {};
+
       if (searchTerm) {
         query = {
           $text: {
@@ -30,6 +32,14 @@ const postsService = {
           },
         };
       }
+      if (tags) {
+        query = {
+          tags: {
+            $in: tags.split(","),
+          },
+        };
+      }
+
       return await Posts.find(query).skip(skip).limit(limit).sort(sort);
     } catch (error) {
       console.log(error);
