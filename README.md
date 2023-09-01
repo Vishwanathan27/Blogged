@@ -6,6 +6,7 @@ Blogged BE is a Node.js based project for the blogging platform. This repository
 ## Live Demo
 
 The project is live at [http://54.194.24.88/api/v1/public/misc/health](http://54.194.24.88/api/v1/public/misc/health)
+[Demo Video](https://youtu.be/dR-y_oV2V5w)
 
 
 ## Prerequisites
