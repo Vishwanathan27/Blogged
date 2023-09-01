@@ -2,7 +2,6 @@
 
 Blogged BE is a Node.js based project for the blogging platform. This repository contains the backend codebase of the platform.
 
-![Project Banner](https://blogged.s3.amazonaws.com/logo.png)
 
 ## Live Demo
 
